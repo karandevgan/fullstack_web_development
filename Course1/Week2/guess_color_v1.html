@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Color Guessing Game!</title>
+</head>
+
+<body onload="playGame()">
+    <script>
+        var colors = [
+            'AliceBlue',
+            'AntiqueWhite',
+            'Aqua',
+            'Beige',
+            'Brown',
+            'BurlyWood',
+            'Cornsilk',
+            'FloralWhite',
+            'ForestGreen',
+            'Fuchsia',
+            'LavenderBlush',
+            'Magenta',
+            'Maroon',
+            'Navy',
+            'SaddleBrown',
+            'Salmon',
+            'Turquoise',
+            'Violet',
+            'Yellow'
+        ];
+
+        function getRandomColor() {
+            colors.sort();
+            var index = Math.floor(Math.random() * (colors.length));
+            return colors[index];
+        }
+
+        function isChoiceValid(choice) {
+            var index_of_choice = colors.indexOf(choice);
+            if (index_of_choice === -1) {
+                alert("Sorry! I don't recognize your color.\n\nPlease try again.");
+                return false;
+            }
+            return true;
+        }
+
+        function getUserChoice() {
+            var choice = '';
+            do {
+                prompt_msg = 'I am thinking one of these colors:\n\n';
+                prompt_msg += colors.join(', ');
+                prompt_msg += '\n\nWhat color I am thinking of?';
+                choice = prompt(prompt_msg);
+            } while (!isChoiceValid(choice));
+            return choice;
+        }
+
+        function setBackgroundColor(color) {
+            var mybody = document.getElementsByTagName("body")[0];
+            mybody.style.background = color;
+        }
+
+        function playGame() {
+            var random_color = getRandomColor();
+            alert(random_color);
+            var no_of_guesses = 0;
+            var user_choice = '';
+            var success_msg = '';
+            var retry_msg = '';
+            while (true) {
+                no_of_guesses++;
+                user_choice = getUserChoice();
+                console.log(user_choice);
+                if (user_choice === random_color) {
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

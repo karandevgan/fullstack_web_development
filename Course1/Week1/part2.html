@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dating Website Assignment</title>
+</head>
+
+<style>
+    .fieldset {
+        background: lightyellow;
+        border: 10px solid yellow;
+        margin-bottom: 10px;
+        width: 720px;
+        height: 180px;
+    }
+
+    .label {
+        width: 180px;
+        display: inline-block;
+        text-align: right;
+        vertical-align: top;
+    }
+
+    .labelchkbox {
+        width: auto;
+    }
+
+    .labelradio {
+        width: auto;
+    }
+
+    .rangetext {
+        width: auto;
+        text-align: center;
+        vertical-align: top;
+        background-color: green;
+    }
+
+    textarea {
+        width: 360px;
+        height: 50px;
+    }
+</style>
+
+<body>
+    <section>
+        <h1>Please Enter Your Details For Our Dating Website</h1>
+        <form action="https://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php" method="get">
+            <fieldset class="fieldset">
+                <legend>Your Face</legend>
+                <label class="label" id="lblImage" for="avatar">Your Image:</label>
+                <input id="avatar" name="avatar" type="file" required="true">
+                <br>
+                <label class="label" id="lblPreview" for="preview">Image Preview:</label>
+                <img id="preview" name="preview" height="150"/>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend>Your General Details</legend>
+                <label class="label" id="lblName" for="name">Name:</label>
+                <input type="text" id="name" name="name" required="true" />
+                <br>
+                <label class="label" id="lblGender" for="gender">Gender:</label>
+                <input type="radio" id="male" name="gender" required="true" />
+                <label for="male" class="label labelradio">Male</label>
+                <input type="radio" id="female" name="gender" required="true" />
+                <label for="female" class="label labelradio">Female</label>
+                <br>
+                <label class="label" id="lblAge" for="age">Age:</label>
+                <input type="number" id="age" name="age" required="true" />
+                <br>
+                <label class="label" id="lblDateOfBirth" for="dateOfBirth">Date of birth:</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" />
+                <br>
+                <label class="label" id="lblFavColor" for="favColor">Favorite Color:</label>
+                <input type="color" id="favColor" name="favColor" />
+                <br>
+                <label class="label" id="lblCountry" for="country">Which country:</label>
+                <select id="country" name="country">
+                    <option id="noselection" value="No Selection">No Selection</option>
+                    <option id="india" value="India">India</option>
+                    <option id="usa" value="USA">USA</option>
+                    <option id="uk" value="UK">UK</option>
+                    <option id="hongkong" value="Hong Kong">Hong Kong</option>
+                    <option id="china" value="China">China</option>
+                </select>
+                <br>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend>Your Indicators</legend>
+                <label class="label" id="lblHeight" for="height">Height:</label>
+                <span class="rangetext">Short</span>
+                <input type="range" id="height" name="height" min="0" max="100" step="2" />
+                <span class="rangetext">Tall</span>
+                <br>
+                <label class="label" id="lblSalary" for="salary">Salary:</label>
+                <span class="rangetext">Poor</span>
+                <input type="range" id="salary" name="salary" min="0" max="100" step="2" />
+                <span class="rangetext">Rich</span>
+                <br>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend>Your Contact Information</legend>
+                <label class="label" id="lblEmail" for="email">Email:</label>
+                <input type="email" id="email" name="email" required="true" />
+                <br>
+                <label class="label" id="lblMobile" for="mobile">Mobile:</label>
+                <input type="tel" id="mobile" name="mobile" />
+                <br>
+                <label class="label" id="lblAddress" for="address">Address:</label>
+                <textarea id="address" name="address"></textarea>
+                <br>
+                <label class="label" id="lblContactMethod" for="contactmethod">Method to contact you:</label>
+                <input type="checkbox" id="emailchkbox" name="contactmethod" />
+                <label class="label labelchkbox">Email</label>
+                <input type="checkbox" id="whatsappchkbox" name="contactmethod" />
+                <label class="label labelchkbox">Whatsapp</label>
+                <input type="checkbox" id="inappchatchkbox" name="contactmethod" />
+                <label class="label labelchkbox">In-app chat</label>
+                <br>
+            </fieldset>
+            <input type="submit" value="Submit" />
+        </form>
+    </section>
+    <script src="https://www.cse.ust.hk/~rossiter/dating_web_site.js"></script>
+</body>
+
+</html>
