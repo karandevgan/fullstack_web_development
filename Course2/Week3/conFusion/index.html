@@ -103,12 +103,91 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <p style="padding:40px;"></p>
-                    <a type="button" href="#reservetable" class="btn btn-warning" data-toggle="tooltip" title="Or call us at +852 12345678" data-placement="bottom">Reserve Table</a>
+                    <a type="button" href="#" class="btn btn-warning" data-target="#reservationModal" data-toggle="modal">Reserve Table</a>
                 </div>
             </div>
         </div>
     </header>
 
+    <div id="reservationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Reserve Table </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="guests" class="col-xs-12 col-sm-2 control-label">Number of guests</label>
+                                    <div class="col-xs-12 col-sm-10">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="1" />1
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="2" />2
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="3" />3
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="4" />4
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="5" />5
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="guests" value="6" />6
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="section" class="col-xs-12 col-sm-2 control-label">Section</label>
+                                    <div class="btn-group col-xs-12 col-sm-10" data-toggle="buttons">
+                                        <label class="btn btn-danger active">
+                                            <input type="radio" name="nonsmoking" id="nonsmoking" checked />Non-Smoking
+                                        </label>
+                                        <label class="btn btn-danger">
+                                            <input type="radio" name="smoking" id="smoking" />Smoking
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="col-xs-12 col-sm-2 control-label">Date and Time</label>
+                                    <div class="col-xs-5 col-sm-4">
+                                        <label class="sr-only" for="reservation-date">Date</label>
+                                        <input class="form-control" type="text" name="reservation-date" id="reservation-date" placeholder="Date" onfocus="(this.type = 'date')"
+                                            onblur="(this.type='text')" />
+                                        <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                                    </div>
+                                    <div class="col-xs-5 col-sm-4">
+                                        <label class="sr-only" for="reservation-time">Time</label>
+                                        <input type="text" class="form-control" name="reservation-time" id="reservation-time" placeholder="Time" onfocus="(this.type='time')"
+                                            onblur="(this.type='text')" />
+                                        <span class="glyphicon glyphicon-time form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-sm-5 col-sm-offset-2">
+                                        <button type="button" class="btn btn-primary">Reserve</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning alert-dismissible col-xs-12" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Warning: </strong>Please <strong>call</strong> us to reserve for more than six
+                                    guests.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -236,66 +315,6 @@
                         <p><a class="btn btn-primary btn-xs" href="#">More &raquo;</a></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row row-content" id="reservetable">
-            <div class="col-xs-12 col-sm-3">
-                <p style="padding: 20px;"></p>
-                <h3 align="center">Reserve a table</h3>
-            </div>
-            <div class="col-xs-12 col-sm-9">
-                <form role="form" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="guests" class="col-xs-12 col-sm-2 control-label">Number of guests</label>
-                        <div class="col-xs-12 col-sm-5">
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="1" />1
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="2" />2
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="3" />3
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="4" />4
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="5" />5
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="guests" value="6" />6
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="col-xs-12 col-sm-2 control-label">Date and Time</label>
-                        <div class="col-xs-6 col-sm-5">
-                            <label class="sr-only" for="reservation-date">Date</label>
-                            <input class="form-control" type="text" name="reservation-date" id="reservation-date" placeholder="Date" onfocus="(this.type = 'date')"
-                                onblur="(this.type='text')" />
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                        </div>
-                        <div class="col-xs-6 col-sm-5">
-                            <label class="sr-only" for="reservation-time">Time</label>
-                            <input type="text" class="form-control" name="reservation-time" id="reservation-time" placeholder="Time" onfocus="(this.type='time')"
-                                onblur="(this.type='text')" />
-                            <span class="glyphicon glyphicon-time form-control-feedback"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-5 col-sm-offset-2">
-                            <button type="button" class="btn btn-primary">Reserve</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="alert alert-warning alert-dismissible col-xs-12 col-sm-12" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Warning: </strong>Please <strong>call</strong> us to reserve for more than six guests.
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
