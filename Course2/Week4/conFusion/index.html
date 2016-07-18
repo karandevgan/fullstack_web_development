@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Ristorante Con Fusion</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="css/mystyles.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/bootstrap-social.css" />
 </head>
 
@@ -144,12 +144,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="section" class="col-xs-12 col-sm-2 control-label">Section</label>
-                                    <div class="btn-group col-xs-12 col-sm-10" data-toggle="buttons">
+                                    <div id="section" class="btn-group col-xs-12 col-sm-10" data-toggle="buttons">
                                         <label class="btn btn-danger active">
-                                            <input type="radio" name="nonsmoking" id="nonsmoking" checked />Non-Smoking
+                                            <input type="radio" name="section" id="nonsmoking" checked />Non-Smoking
                                         </label>
                                         <label class="btn btn-danger">
-                                            <input type="radio" name="smoking" id="smoking" />Smoking
+                                            <input type="radio" name="section" id="smoking" />Smoking
                                         </label>
                                     </div>
                                 </div>
@@ -365,8 +365,8 @@
             </div>
         </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#mycarousel").carousel( {interval: 2000});
