@@ -33,10 +33,10 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('usemin', ['jshint'], function () {
-    return gulp.src('./app/menu.html')
+    return gulp.src('./app/**/*.html')
         .pipe(usemin({
-            css: [minifycss(), rev()],
-            js: [ngannotate(), uglify(), rev()]
+            css: [minifycss, rev],
+            js: [ngannotate, uglify, rev]
         }))
         .pipe(gulp.dest('dist/'));
 });
@@ -44,6 +44,7 @@ gulp.task('usemin', ['jshint'], function () {
 // Images
 gulp.task('imagemin', function () {
     return del(['dist/images']), gulp.src('app/images/**/*')
+        // TODO: Uncomment this line below in final file.
         // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest('dist/images'));
         //.pipe(notify({ message: 'Images task complete' }));
