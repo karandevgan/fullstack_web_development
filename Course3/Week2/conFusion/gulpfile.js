@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     rev = require('gulp-rev'),
     browserSync = require('browser-sync').create(),
-    del = require('del');
+    del = require('del'),
+    ngannotate = require('gulp-ng-annotate');
 
 gulp.task('jshint', function () {
     return gulp.src('app/scripts/**/*.js')
@@ -28,13 +29,14 @@ gulp.task('clean', function () {
 // Default task
 gulp.task('default', ['clean'], function () {
     gulp.start('usemin', 'imagemin', 'copyfonts');
+    //gulp.start('usemin', 'copyfonts');
 });
 
 gulp.task('usemin', ['jshint'], function () {
     return gulp.src('./app/menu.html')
         .pipe(usemin({
             css: [minifycss(), rev()],
-            js: [uglify(), rev()]
+            js: [ngannotate(), uglify(), rev()]
         }))
         .pipe(gulp.dest('dist/'));
 });
@@ -42,7 +44,7 @@ gulp.task('usemin', ['jshint'], function () {
 // Images
 gulp.task('imagemin', function () {
     return del(['dist/images']), gulp.src('app/images/**/*')
-        .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+        // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest('dist/images'));
         //.pipe(notify({ message: 'Images task complete' }));
 });
@@ -78,7 +80,5 @@ gulp.task('browser-sync', ['default'], function () {
         }
     });
     // Watch any files in dist/, reload on change
-    gulp.watch(['dist/**']).on('change', function(){
-        console.log("Changes.....");
-    });
+    gulp.watch(['dist/**']).on('change', browserSync.reload);
 });
