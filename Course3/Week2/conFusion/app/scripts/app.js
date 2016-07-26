@@ -141,5 +141,25 @@ angular.module('confusionApp', [])
         };
 
         $scope.dish = dish;
+        $scope.newComment = {
+            rating: 5,
+            comment: "",
+            author: "",
+            date: ""
+        };
+
+        $scope.postComment = function() {
+            $scope.newComment.date = new Date();
+            $scope.dish.comments.push($scope.newComment);
+            console.log($scope.newComment);
+            $scope.newComment = {
+                rating: 5,
+                comment: "",
+                author: "",
+                date: ""
+            };
+            $scope.commentForm.$setPristine();
+            console.log($scope.newComment);
+        };
     }])
     ;
