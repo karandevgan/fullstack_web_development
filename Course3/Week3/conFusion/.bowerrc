@@ -1,0 +1,6 @@
+{
+    "registry": "http://bower.herokuapp.com",
+    "proxy" : "http://karanpalsingh_dewgun:K%40y%2424194@hysbc1.persistent.co.in:8080",
+    "https-proxy" : "http://karanpalsingh_dewgun:K%40y%2424194@hysbc1.persistent.co.in:8080",
+    "strict-ssl": false
+}
