@@ -5,7 +5,7 @@ angular.module('confusionApp')
         $scope.tab = 1;
         $scope.filtText = '';
         $scope.showDetails = false;
-        
+
         $scope.dishes = menuFactory.getDishes();
         $scope.select = function (setTab) {
             $scope.tab = setTab;
@@ -59,8 +59,8 @@ angular.module('confusionApp')
     }])
 
 
-    .controller('DishDetailController', ['$scope', '$routeParams', 'menuFactory', function ($scope, $routeParams, menuFactory) {
-        $scope.dish = menuFactory.getDish(parseInt($routeParams.id, 10));
+    .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function ($scope, $stateParams, menuFactory) {
+        $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10));
         $scope.newComment = {
             rating: 5,
             comment: "",
@@ -68,7 +68,7 @@ angular.module('confusionApp')
             date: ""
         };
 
-        $scope.postComment = function() {
+        $scope.postComment = function () {
             $scope.newComment.date = new Date();
             $scope.dish.comments.push($scope.newComment);
             console.log($scope.newComment);
