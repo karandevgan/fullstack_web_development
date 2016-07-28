@@ -81,4 +81,20 @@ angular.module('confusionApp')
             $scope.commentForm.$setPristine();
             console.log($scope.newComment);
         };
-    }]);
+    }])
+
+
+    .controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function ($scope, menuFactory, corporateFactory) {
+        $scope.featuredDish = menuFactory.getDish(0);
+        $scope.promotionDish = menuFactory.getPromotion(0);
+
+        $scope.executiveChef = corporateFactory.getLeader(3);
+    }])
+
+
+
+    .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
+        $scope.leaders = corporateFactory.getLeaders();
+    }])
+
+    ;
