@@ -6,7 +6,14 @@ angular.module('confusionApp')
         $scope.filtText = '';
         $scope.showDetails = false;
 
-        $scope.dishes = menuFactory.getDishes();
+        $scope.dishes = {};
+        menuFactory.getDishes()
+            .then(
+            function (response) {
+                $scope.dishes = response.data;
+            }
+            );
+
         $scope.select = function (setTab) {
             $scope.tab = setTab;
             if (setTab === 2) {
@@ -60,7 +67,13 @@ angular.module('confusionApp')
 
 
     .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function ($scope, $stateParams, menuFactory) {
-        $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10));
+        $scope.dish = {};
+        menuFactory.getDish(parseInt($stateParams.id, 10))
+            .then(function (response) {
+                $scope.dish = response.data;
+                $scope.showDish = true;
+            });
+
         $scope.newComment = {
             rating: 5,
             comment: "",
@@ -85,16 +98,41 @@ angular.module('confusionApp')
 
 
     .controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function ($scope, menuFactory, corporateFactory) {
-        $scope.featuredDish = menuFactory.getDish(0);
-        $scope.promotionDish = menuFactory.getPromotion(0);
+        $scope.featuredDish = {};
+        menuFactory.getDish(0)
+            .then(
+            function (response) {
+                $scope.featuredDish = response.data;
+                $scope.showFeaturedDish = true;
+            });
 
-        $scope.executiveChef = corporateFactory.getLeader(3);
+        $scope.promotionDish = {};
+        menuFactory.getPromotion(0)
+            .then(
+            function (response) {
+                $scope.promotionDish = response.data;
+                $scope.showPromotionDish = true;
+            });
+
+
+        $scope.executiveChef = {};
+        corporateFactory.getLeader(3)
+            .then(
+            function (response) {
+                $scope.executiveChef = response.data;
+                $scope.showExecutiveChef = true;
+            });
     }])
 
 
 
     .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
-        $scope.leaders = corporateFactory.getLeaders();
+        $scope.leaders = {};
+        corporateFactory.getLeaders()
+            .then(function (response) {
+                $scope.leaders = response.data;
+                $scope.showLeaders = true;
+            });
     }])
 
     ;
