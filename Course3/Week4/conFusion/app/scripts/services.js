@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('confusionApp')
-    .constant("baseURL", "http://localhost:3000/")
+    .constant("baseURL", "http://localhost:3002/")
     .factory('menuFactory', ['$http', 'baseURL', function ($http, baseURL) {
 
         var menuFactory = {};

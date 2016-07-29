@@ -5,7 +5,10 @@
             <h3 align=center>Our Lipsmacking Culinary Creations</h3>
         </div>
         <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-            <div class="media">
+            <div ng-if="!showFeaturedDish">
+                <h3>{{ featuredDishMessage }}</h3>
+            </div>
+            <div class="media" ng-if="showFeaturedDish">
                 <div class="media-left media-middle">
                     <a href="javascript:void(0);">
                         <img class="media-object img-thumbnail" ng-src="{{ featuredDish.image }}" alt="{{ featuredDish.name }}">
@@ -26,7 +29,10 @@
             <h3 align=center>This Month's Promotions</h3>
         </div>
         <div class="col-xs-12 col-sm-9">
-            <div class="media">
+            <div ng-if="!showPromotionDish">
+                <h3>{{ promotionDishMessage }}</h3>
+            </div>
+            <div class="media" ng-if="showPromotionDish">
                 <div class="media-body">
                     <h2 class="media-heading">{{ promotionDish.name }} <span class="label label-danger">{{ promotionDish.label }}</span> <span class="badge">{{ promotionDish.price }}</span></h2>
                     <p>{{ promotionDish.description }}</p>
@@ -45,7 +51,10 @@
             <h3 align=center>Meet our Culinary Specialists</h3>
         </div>
         <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-            <div class="media">
+            <div ng-if="!showExecutiveChef">
+                <h3>{{ executiveChefMessage }}</h3>
+            </div>
+            <div class="media" ng-if="showExecutiveChef">
                 <div class="media-left media-middle">
                     <a href="javascript:void(0);">
                         <img class="media-object img-thumbnail" ng-src="{{ executiveChef.image }}" alt="{{ executiveChef.name }}">
