@@ -51,7 +51,7 @@
                         </blockquote>
                     </div>
                     <div>
-                        <div class="col-xs-12" ng-show="!commentForm.$invalid">
+                        <div class="col-xs-12" ng-show="!forms.commentForm.$invalid">
                             <blockquote>
                                 <p>{{newComment.rating}} Stars</p>
                                 <p>{{newComment.comment}}</p>
@@ -60,13 +60,12 @@
                                 </footer>
                             </blockquote>
                         </div>
-                        <form id="commentForm" name="commentForm" class="form-horizontal" role="form" name="commentForm" ng-submit="postComment()"
-                            novalidate>
-                            <div class="form-group" ng-class="{'has-error': commentForm.name.$error.required && !commentForm.name.$pristine}">
+                        <form id="commentForm" class="form-horizontal" role="form" name="forms.commentForm" ng-submit="postComment()" novalidate>
+                            <div class="form-group" ng-class="{'has-error': forms.commentForm.name.$error.required && !forms.commentForm.name.$pristine}">
                                 <label class="col-xs-12 col-sm-2 control-label" for="name" id="lblName">Name </label>
                                 <div class="col-xs-12 col-sm-8">
                                     <input class="form-control" id="name" name="name" type="text" ng-model="newComment.author" required />
-                                    <span class="help-block" ng-show="commentForm.name.$error.required && !commentForm.name.$pristine">Name is required.</span>
+                                    <span class="help-block" ng-show="forms.commentForm.name.$error.required && !forms.commentForm.name.$pristine">Name is required.</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,15 +92,15 @@
                                 </label>
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{'has-error': commentForm.comments.$error.required && !commentForm.comments.$pristine}">
+                            <div class="form-group" ng-class="{'has-error': forms.commentForm.comments.$error.required && !forms.commentForm.comments.$pristine}">
                                 <label class="col-xs-12 col-sm-2 control-label" for="comments" id="lblComments"> Your Comments </label>
                                 <div class="col-xs-12 col-sm-8">
                                     <textarea class="form-control" id="comments" name="comments" rows="10" ng-model="newComment.comment" required></textarea>
-                                    <span class="help-block" ng-show="commentForm.comments.$error.required && !commentForm.comments.$pristine">Comments are required</span>
+                                    <span class="help-block" ng-show="forms.commentForm.comments.$error.required && !forms.commentForm.comments.$pristine">Comments are required</span>
                                 </div>
                             </div>
                             <div class="col-xs-offset-2">
-                                <button type="submit" class="btn btn-primary" ng-disabled="commentForm.$invalid">Submit Comment</button>
+                                <button type="submit" class="btn btn-primary" ng-disabled="forms.commentForm.$invalid">Submit Comment</button>
                             </div>
                         </form>
                     </div>
