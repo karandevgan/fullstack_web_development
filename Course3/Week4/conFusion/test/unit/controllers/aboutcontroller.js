@@ -11,10 +11,11 @@ describe("Controller: AboutController", function () {
 
     // Initialize the controller and mock scope
     beforeEach(inject(function ($controller, _$httpBackend_, $rootScope, corporateFactory) {
+        var baseURL = 'http://localhost:3000/';
         // placing mock dependencies
         $httpbackend = _$httpBackend_;
 
-        $httpbackend.expectGET("http://localhost:3000/leadership").respond([
+        $httpbackend.expectGET(baseURL + "leadership").respond([
             {
                 "id": 0,
                 "name": "Peter Pan",
