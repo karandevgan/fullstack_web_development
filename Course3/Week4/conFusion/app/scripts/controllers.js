@@ -34,6 +34,7 @@ angular.module('confusionApp')
                 $scope.filtText = "";
             }
         };
+        
         $scope.isSelected = function (checkTab) {
             return ($scope.tab === checkTab);
         };
