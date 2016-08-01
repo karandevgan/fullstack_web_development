@@ -51,28 +51,39 @@ describe("Controller: DishDetailController", function () {
         expect(scope.newComment.date).toBe("");
     });
 
-    it('should create and put a "newComment"', function () {
-        scope.newComment = {
-            rating: 4,
-            comment: "Test Comment",
-            author: "Test Author",
-            date: ""
-        }
 
-        scope.forms.commentForm = {
-            $setPristine: function () {
-                return true;
+    describe("Posting a Comment", function () {
+
+        beforeEach(function () {
+
+            scope.newComment = {
+                rating: 4,
+                comment: "Test Comment",
+                author: "Test Author",
+                date: ""
             }
-        };
 
-        expect(scope.forms).toBeDefined();
-        expect(scope.forms.commentForm).toBeDefined();
-        scope.postComment();
-        expect(scope.dish.comments.length).toBe(1);
-        expect(scope.dish.comments[0].rating).toBe(4);
-        expect(scope.dish.comments[0].comment).toBe("Test Comment");
-        expect(scope.dish.comments[0].author).toBe("Test Author");
+            scope.forms.commentForm = {
+                $setPristine: function () {
+                    return true;
+                }
+            };
+
+            scope.postComment();
+        });
+
+        it('should have commentForm defined', function () {
+            expect(scope.forms).toBeDefined();
+            expect(scope.forms.commentForm).toBeDefined();
+        });
+
+        it('should have successfully posted a "newComment"', function () {
+            expect(scope.dish.comments.length).toBe(1);
+            expect(scope.dish.comments[0].rating).toBe(4);
+            expect(scope.dish.comments[0].comment).toBe("Test Comment");
+            expect(scope.dish.comments[0].author).toBe("Test Author");
+        });
+
     });
-
 
 });
