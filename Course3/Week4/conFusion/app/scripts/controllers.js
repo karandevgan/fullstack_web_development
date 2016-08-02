@@ -96,6 +96,7 @@ angular.module('confusionApp')
 
         $scope.postComment = function () {
             $scope.newComment.date = new Date().toISOString();
+            $scope.newComment.rating = parseInt($scope.newComment.rating);
             $scope.dish.comments.push($scope.newComment);
             console.log($scope.newComment);
             menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
