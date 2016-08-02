@@ -19,6 +19,10 @@ describe('conFusion App E2E Testing', function () {
                 toEqual('Ristorante Con Fusion');
         });
 
+        it('should not have featuredDishMessage', function(){
+            expect(browser.isElementPresent(by.binding('featuredDishMessage'))).toBe(false);
+        });
+
         it('should have featured dish properties as', function () {
             var featuredDishName = element(by.binding('featuredDish.name'));
             expect(featuredDishName.getText()).toEqual('Uthapizza Hot 4.99');
@@ -33,6 +37,10 @@ describe('conFusion App E2E Testing', function () {
             );
         });
 
+        it('should not have promotionDishMessage', function(){
+            expect(browser.isElementPresent(by.binding('promotionDishMessage'))).toBe(false);
+        });
+
         it('should have promotion dish properties as', function () {
             var promotionDishName = element(by.binding('promotionDish.name'));
             expect(promotionDishName.getText()).toEqual('Weekend Grand Buffet New 19.99');
@@ -45,6 +53,10 @@ describe('conFusion App E2E Testing', function () {
             expect(promotionDishDescription.getText()).toEqual(
                 'Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person'
             );
+        });
+
+        it('should not have executiveChefMessage', function(){
+            expect(browser.isElementPresent(by.binding('executiveChefMessage'))).toBe(false);
         });
 
         it('should have executive chef properties as', function () {
@@ -64,36 +76,36 @@ describe('conFusion App E2E Testing', function () {
     });
 
 
-    describe('menu 0 item', function () {
-        beforeEach(function () {
-            browser.get('index.html#/menu/0');
-        });
+    // describe('menu 0 item', function () {
+    //     beforeEach(function () {
+    //         browser.get('index.html#/menu/0');
+    //     });
 
-        it('should have a name', function () {
-            var name = element(by.binding('dish.name'));
-            expect(name.getText())
-                .toEqual('Uthapizza Hot $4.99');
-        });
+    //     it('should have a name', function () {
+    //         var name = element(by.binding('dish.name'));
+    //         expect(name.getText())
+    //             .toEqual('Uthapizza Hot $4.99');
+    //     });
 
-        it('should show number of comments as', function () {
-            expect(element.all(by.repeater('comment in dish.comments'))
-                .count()).toEqual(7);
-        });
+    //     it('should show number of comments as', function () {
+    //         expect(element.all(by.repeater('comment in dish.comments'))
+    //             .count()).toEqual(7);
+    //     });
 
-        it('should show author of first comment as', function () {
-            element(by.model('sortBy')).sendKeys('author');
-            expect(element.all(by.repeater('comment in dish.comments'))
-                .count()).toEqual(7);
-            var author = element.all(by.repeater('comment in dish.comments'))
-                .first().element(by.binding('comment.author'));
-            expect(author.getText()).toContain('25 Cent');
-        });
+    //     it('should show author of first comment as', function () {
+    //         element(by.model('sortBy')).sendKeys('author');
+    //         expect(element.all(by.repeater('comment in dish.comments'))
+    //             .count()).toEqual(7);
+    //         var author = element.all(by.repeater('comment in dish.comments'))
+    //             .first().element(by.binding('comment.author'));
+    //         expect(author.getText()).toContain('25 Cent');
+    //     });
 
-        it('should show rating of first author as', function () {
-            element(by.model('sortBy')).sendKeys('author');
-            var rating = element.all(by.repeater('comment in dish.comments'))
-                .first().element(by.binding('comment.rating'));
-            expect(rating.getText()).toEqual('2 Stars');
-        })
-    });
+    //     it('should show rating of first author as', function () {
+    //         element(by.model('sortBy')).sendKeys('author');
+    //         var rating = element.all(by.repeater('comment in dish.comments'))
+    //             .first().element(by.binding('comment.rating'));
+    //         expect(rating.getText()).toEqual('2 Stars');
+    //     })
+    // });
 });
