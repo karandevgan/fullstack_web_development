@@ -18,6 +18,49 @@ describe('conFusion App E2E Testing', function () {
             expect(browser.getTitle()).
                 toEqual('Ristorante Con Fusion');
         });
+
+        it('should have featured dish properties as', function () {
+            var featuredDishName = element(by.binding('featuredDish.name'));
+            expect(featuredDishName.getText()).toEqual('Uthapizza Hot 4.99');
+
+            var featuredDishImg = element.all(by.css('[class="media-object img-thumbnail"]'))
+                .get(0);
+            expect(featuredDishImg.getAttribute('ng-src')).toEqual('images/uthapizza.png');
+
+            var featuredDishDescription = element(by.binding('featuredDish.description'));
+            expect(featuredDishDescription.getText()).toEqual(
+                'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'
+            );
+        });
+
+        it('should have promotion dish properties as', function () {
+            var promotionDishName = element(by.binding('promotionDish.name'));
+            expect(promotionDishName.getText()).toEqual('Weekend Grand Buffet New 19.99');
+
+            var promotionDishImg = element.all(by.css('[class="media-object img-thumbnail"]'))
+                .get(1);
+            expect(promotionDishImg.getAttribute('ng-src')).toEqual('images/buffet.png');
+
+            var promotionDishDescription = element(by.binding('promotionDish.description'));
+            expect(promotionDishDescription.getText()).toEqual(
+                'Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person'
+            );
+        });
+
+        it('should have executive chef properties as', function () {
+            var executiveChefName = element(by.binding('executiveChef.name'));
+            expect(executiveChefName.getText()).toContain('Alberto Somayya');
+
+            var executiveChefImg = element.all(by.css('[class="media-object img-thumbnail"]'))
+                .get(2);
+            expect(executiveChefImg.getAttribute('ng-src')).toEqual('images/alberto.png');
+
+            var executiveChefDescription = element(by.binding('executiveChef.description'));
+            expect(executiveChefDescription.getText()).toEqual(
+                'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
+            );
+        });        
+
     });
 
 
