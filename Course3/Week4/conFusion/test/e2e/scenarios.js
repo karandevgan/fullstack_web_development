@@ -95,9 +95,9 @@ describe('conFusion App E2E Testing', function () {
 
             expect(elem.element(by.css('img')).getAttribute('ng-src'))
                 .toBe('images/uthapizza.png');
-            
+
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/0');
                 });
 
@@ -112,7 +112,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/zucchipakoda.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/1');
                 });
 
@@ -127,7 +127,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/vadonut.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/2');
                 });
 
@@ -142,7 +142,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/elaicheesecake.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/3');
                 });
 
@@ -174,7 +174,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/zucchipakoda.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/1');
                 });
 
@@ -189,7 +189,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/vadonut.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/2');
                 });
 
@@ -220,7 +220,7 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/uthapizza.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/0');
                 });
 
@@ -251,12 +251,222 @@ describe('conFusion App E2E Testing', function () {
                 .toBe('images/elaicheesecake.png');
 
             elem.element(by.css('a')).getAttribute('href')
-                .then(function(href) {
+                .then(function (href) {
                     expect(href.split('#')[1]).toBe('/menu/3');
                 });
 
             expect(elem.element(by.binding('dish.name')).getText())
                 .toBe('ElaiCheese Cake $2.99');
+        });
+
+    });
+
+    describe('menu/0', function () {
+        beforeAll(function () {
+            browser.get('index.html#/menu/0');
+        });
+
+        it('should not have Message element', function () {
+            expect(browser.isElementPresent(by.binding('message'))).toBeFalsy();
+        });
+
+        it('should have dish name as', function () {
+            expect(element(by.binding('dish.name')).getText()).toBe('Uthapizza Hot $4.99');
+        });
+
+        it('should have dish description as', function () {
+            expect(element(by.binding('dish.description')).getText())
+                .toBe(
+                'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'
+                );
+        });
+
+        it('should have image as', function(){
+            var img_src = element(by.css('[class="media-object img-thumbnail"]')).getAttribute('ng-src');
+            expect(img_src).toBe('images/uthapizza.png');
+        });
+
+        it('should have number of comments as', function () {
+            expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+        });
+
+        describe('sortBy author in increasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('author');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('25 Cent');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("It's your birthday, we're gonna party!");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('2');
+            });
+        });
+
+        describe('sortBy author in decreasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('-author');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('Ringo Starry');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("Ultimate, Reaching for the stars!");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('4');
+            });
+        });
+
+        describe('sortBy rating in increasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('rating');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('25 Cent');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("It's your birthday, we're gonna party!");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('2');
+            });
+        });
+
+        describe('sortBy rating in decreasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('-rating');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('John Lemon');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("Imagine all the eatables, living in conFusion!");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('5');
+            });
+        });
+
+
+        describe('sortBy date in increasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('date');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('25 Cent');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("It's your birthday, we're gonna party!");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('2');
+            });
+
+            it('should have date as', function () {
+                var date = firstComment.element(by.binding('comment.date'));
+                expect(date.getText()).toContain('Dec 2, 2011');
+            });
+        });
+
+        describe('sortBy date in decreasing order', function () {
+            beforeAll(function () {
+                element(by.model('sortBy')).clear();
+                element(by.model('sortBy')).sendKeys('-date');
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(7);
+            });
+
+            var firstComment = element.all(by.repeater('comment in dish.comments')).first();
+
+            it('should have first author as', function () {
+                var author = firstComment.element(by.binding('comment.author'));
+                expect(author.getText()).toContain('Ankit');
+            });
+
+            it('should have first comment as', function () {
+                var comment = firstComment.element(by.binding('comment.comment'));
+                expect(comment.getText()).toBe("I didn't liked it much.");
+            });
+
+            it('should have rating as', function () {
+                var rating = firstComment.element(by.binding('comment.rating'));
+                expect(rating.getText()).toContain('2');
+            });
+
+            it('should have date as', function () {
+                var date = firstComment.element(by.binding('comment.date'));
+                expect(date.getText()).toContain('Jul 30, 2016');
+            });
         });
 
     });
