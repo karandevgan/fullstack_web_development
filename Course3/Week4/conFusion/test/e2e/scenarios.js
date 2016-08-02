@@ -10,7 +10,7 @@ describe('conFusion App E2E Testing', function () {
     });
 
     describe('index', function () {
-        beforeEach(function () {
+        beforeAll(function () {
             browser.get('index.html#/');
         });
 
@@ -19,25 +19,7 @@ describe('conFusion App E2E Testing', function () {
                 toEqual('Ristorante Con Fusion');
         });
 
-        it('should not have featuredDishMessage', function(){
-            expect(browser.isElementPresent(by.binding('featuredDishMessage'))).toBe(false);
-        });
-
-        it('should have featured dish properties as', function () {
-            var featuredDishName = element(by.binding('featuredDish.name'));
-            expect(featuredDishName.getText()).toEqual('Uthapizza Hot 4.99');
-
-            var featuredDishImg = element.all(by.css('[class="media-object img-thumbnail"]'))
-                .get(0);
-            expect(featuredDishImg.getAttribute('ng-src')).toEqual('images/uthapizza.png');
-
-            var featuredDishDescription = element(by.binding('featuredDish.description'));
-            expect(featuredDishDescription.getText()).toEqual(
-                'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'
-            );
-        });
-
-        it('should not have promotionDishMessage', function(){
+        it('should not have promotionDishMessage', function () {
             expect(browser.isElementPresent(by.binding('promotionDishMessage'))).toBe(false);
         });
 
@@ -55,7 +37,7 @@ describe('conFusion App E2E Testing', function () {
             );
         });
 
-        it('should not have executiveChefMessage', function(){
+        it('should not have executiveChefMessage', function () {
             expect(browser.isElementPresent(by.binding('executiveChefMessage'))).toBe(false);
         });
 
@@ -71,41 +53,211 @@ describe('conFusion App E2E Testing', function () {
             expect(executiveChefDescription.getText()).toEqual(
                 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
             );
-        });        
+        });
 
     });
 
+    describe('menu', function () {
+        beforeAll(function () {
+            browser.get('index.html#/menu');
+        });
 
-    // describe('menu 0 item', function () {
-    //     beforeEach(function () {
-    //         browser.get('index.html#/menu/0');
-    //     });
+        it('should not have "Error:Message" element', function () {
+            expect(browser.isElementPresent(by.binding('message'))).toBe(false);
+        });
 
-    //     it('should have a name', function () {
-    //         var name = element(by.binding('dish.name'));
-    //         expect(name.getText())
-    //             .toEqual('Uthapizza Hot $4.99');
-    //     });
+        it('should have "showDetails" as', function () {
+            expect(element(by.binding('showDetails')).getText()).toBe("Show Details");
+        });
 
-    //     it('should show number of comments as', function () {
-    //         expect(element.all(by.repeater('comment in dish.comments'))
-    //             .count()).toEqual(7);
-    //     });
+        it('should toggle details on click', function () {
+            element(by.css('[ng-click="toggleDetails()"]')).click();
+            expect(element(by.binding('showDetails')).getText()).toBe("Hide Details");
+        });
 
-    //     it('should show author of first comment as', function () {
-    //         element(by.model('sortBy')).sendKeys('author');
-    //         expect(element.all(by.repeater('comment in dish.comments'))
-    //             .count()).toEqual(7);
-    //         var author = element.all(by.repeater('comment in dish.comments'))
-    //             .first().element(by.binding('comment.author'));
-    //         expect(author.getText()).toContain('25 Cent');
-    //     });
 
-    //     it('should show rating of first author as', function () {
-    //         element(by.model('sortBy')).sendKeys('author');
-    //         var rating = element.all(by.repeater('comment in dish.comments'))
-    //             .first().element(by.binding('comment.rating'));
-    //         expect(rating.getText()).toEqual('2 Stars');
-    //     })
-    // });
+        // Testing 'The Menu' tab
+
+        it('should have "The Menu" as', function () {
+            expect(element(by.css('.nav-tabs li:nth-child(1)'))
+                .getAttribute('class'))
+                .toContain('active');
+        });
+
+        it('should have number of dishes as', function () {
+            expect(element.all(by.repeater('dish in dishes'))
+                .count())
+                .toBe(4);
+        });
+
+        it('should have correct first dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(0);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/uthapizza.png');
+            
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/0');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Uthapizza Hot $4.99');
+        });
+
+        it('should have correct second dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(1);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/zucchipakoda.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/1');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Zucchipakoda $1.99');
+        });
+
+        it('should have correct third dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(2);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/vadonut.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/2');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Vadonut New $1.99');
+        });
+
+        it('should have correct fourth dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(3);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/elaicheesecake.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/3');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('ElaiCheese Cake $2.99');
+        });
+
+
+        // Testing 'Appetizers' tab
+
+        it('should toggle to "Appetizers" and make it active', function () {
+            element(by.css('.nav-tabs li:nth-child(2)'))
+                .click();
+            expect(element(by.css('.nav-tabs li:nth-child(2)'))
+                .getAttribute('class'))
+                .toContain('active');
+        });
+
+        it('should have number of dishes as', function () {
+            expect(element.all(by.repeater('dish in dishes'))
+                .count())
+                .toBe(2);
+        });
+
+        it('should have correct first dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(0);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/zucchipakoda.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/1');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Zucchipakoda $1.99');
+        });
+
+        it('should have correct second dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(1);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/vadonut.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/2');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Vadonut New $1.99');
+        });
+
+        // Testing 'Mains' tab
+
+        it('should toggle to "Mains" and make it active', function () {
+            element(by.css('.nav-tabs li:nth-child(3)'))
+                .click();
+            expect(element(by.css('.nav-tabs li:nth-child(3)'))
+                .getAttribute('class'))
+                .toContain('active');
+        });
+
+        it('should have number of dishes as', function () {
+            expect(element.all(by.repeater('dish in dishes'))
+                .count())
+                .toBe(1);
+        });
+
+        it('should have correct first dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(0);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/uthapizza.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/0');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('Uthapizza Hot $4.99');
+        });
+
+        // Testing 'Desserts' tab
+
+        it('should toggle to "Desserts" and make it active', function () {
+            element(by.css('.nav-tabs li:nth-child(4)'))
+                .click();
+            expect(element(by.css('.nav-tabs li:nth-child(4)'))
+                .getAttribute('class'))
+                .toContain('active');
+        });
+
+        it('should have number of dishes as', function () {
+            expect(element.all(by.repeater('dish in dishes'))
+                .count())
+                .toBe(1);
+        });
+
+        it('should have correct first dish', function () {
+            var elem = element.all(by.repeater('dish in dishes')).get(0);
+
+            expect(elem.element(by.css('img')).getAttribute('ng-src'))
+                .toBe('images/elaicheesecake.png');
+
+            elem.element(by.css('a')).getAttribute('href')
+                .then(function(href) {
+                    expect(href.split('#')[1]).toBe('/menu/3');
+                });
+
+            expect(elem.element(by.binding('dish.name')).getText())
+                .toBe('ElaiCheese Cake $2.99');
+        });
+
+    });
 });
