@@ -573,11 +573,31 @@ describe('conFusion App E2E Testing', function () {
             it('should show newCommentPreview', function () {
                 expect(element(by.id('newCommentPreview')).isDisplayed()).toBeTruthy();
             });
-            
+
             it('should have correct values in preview of comment', function () {
                 expect(element(by.binding('newComment.author')).getText()).toContain('Test Author');
                 expect(element(by.binding('newComment.rating')).getText()).toContain('2');
                 expect(element(by.binding('newComment.comment')).getText()).toBe('Test Comment');
+            });
+
+            it('should post comment on Submit', function () {
+                element(by.binding('newComment.author')).getText()
+                    .then(function (author) {
+                        if (author.indexOf('Test Author') != -1) {
+                            element(by.css('[type="submit"]')).click();
+                        }
+                    });
+                var newComment = element.all(by.repeater('comment in dish.comments')).last();
+                expect(newComment.element(by.binding('comment.rating')).getText()).toContain('2');
+                expect(newComment.element(by.binding('comment.author')).getText()).toContain('Test Author');
+                expect(newComment.element(by.binding('comment.comment')).getText()).toBe('Test Comment');
+                filter = angular.injector(['ng']).get('dateFilter');
+                today = filter(new Date());
+                expect(newComment.element(by.binding('comment.date')).getText()).toContain(today);
+            });
+
+            it('should have number of comments as', function () {
+                expect(element.all(by.repeater('comment in dish.comments')).count()).toBe(8);
             });
 
         });
@@ -585,7 +605,9 @@ describe('conFusion App E2E Testing', function () {
         describe('make form invalid', function () {
 
             beforeAll(function () {
+                element(by.model('newComment.author')).sendKeys('ABC');
                 element(by.model('newComment.author')).clear();
+                element(by.model('newComment.comment')).sendKeys('ABC');
                 element(by.model('newComment.comment')).clear();
             });
 
@@ -614,7 +636,7 @@ describe('conFusion App E2E Testing', function () {
                 expect(element(by.id('newCommentPreview')).isDisplayed()).toBeFalsy();
             });
 
-            it('should have submit button disabled', function(){
+            it('should have submit button disabled', function () {
                 expect(element(by.css('[type="submit"]')).isEnabled()).toBeFalsy();
             });
 
