@@ -70,9 +70,30 @@ describe('conFusion App E2E Testing', function () {
             expect(element(by.binding('showDetails')).getText()).toBe("Show Details");
         });
 
+        it('should not show detals by default', function () {
+            element.all(by.repeater('dish in dishes')).then(function (dishes) {
+                dishes.forEach(function (dish) {
+                    expect(dish.element(by.binding('dish.description')).isDisplayed()).toBeFalsy();
+                });
+            });
+        });
+
         it('should toggle details on click', function () {
             element(by.css('[ng-click="toggleDetails()"]')).click();
             expect(element(by.binding('showDetails')).getText()).toBe("Hide Details");
+            element.all(by.repeater('dish in dishes')).then(function (dishes) {
+                dishes.forEach(function (dish) {
+                    expect(dish.element(by.binding('dish.description')).isDisplayed()).toBeTruthy();
+                });
+            });
+
+            element(by.css('[ng-click="toggleDetails()"]')).click();
+            expect(element(by.binding('showDetails')).getText()).toBe("Show Details");
+            element.all(by.repeater('dish in dishes')).then(function (dishes) {
+                dishes.forEach(function (dish) {
+                    expect(dish.element(by.binding('dish.description')).isDisplayed()).toBeFalsy();
+                });
+            });
         });
 
 
@@ -281,7 +302,7 @@ describe('conFusion App E2E Testing', function () {
                 );
         });
 
-        it('should have image as', function(){
+        it('should have image as', function () {
             var img_src = element(by.css('[class="media-object img-thumbnail"]')).getAttribute('ng-src');
             expect(img_src).toBe('images/uthapizza.png');
         });
