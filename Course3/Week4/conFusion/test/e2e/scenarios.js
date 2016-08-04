@@ -649,5 +649,16 @@ describe('conFusion App E2E Testing', function () {
 
         });
 
+        describe('go back to menu page', function () {
+            beforeAll(function () {
+                browser.get('index.html#/menu/0');
+            });
+
+            it('should go back to menu page on click of back button', function () {
+                element(by.cssContainingText('.btn', 'Back to Menu')).click();
+                expect(browser.getLocationAbsUrl()).toBe('/menu');
+            });
+        });
     });
+
 });
