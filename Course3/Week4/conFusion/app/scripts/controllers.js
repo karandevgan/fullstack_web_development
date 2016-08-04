@@ -95,6 +95,10 @@ angular.module('confusionApp')
         $scope.forms = {};
 
         $scope.postComment = function () {
+            if (! $scope.forms.commentForm.$valid) {
+                console.log('Invalid Form');
+                return;
+            } 
             $scope.newComment.date = new Date().toISOString();
             $scope.newComment.rating = parseInt($scope.newComment.rating);
             $scope.dish.comments.push($scope.newComment);
