@@ -552,7 +552,9 @@ describe('conFusion App E2E Testing', function () {
         });
 
         describe('write a comment', function () {
+
             beforeAll(function () {
+                element(by.model('sortBy')).clear();
                 element(by.model('newComment.author')).sendKeys('Test Author');
                 element(by.model('newComment.comment')).sendKeys('Test Comment');
                 element(by.id('ratingCheckbox2')).click();
@@ -591,9 +593,14 @@ describe('conFusion App E2E Testing', function () {
                 expect(newComment.element(by.binding('comment.rating')).getText()).toContain('2');
                 expect(newComment.element(by.binding('comment.author')).getText()).toContain('Test Author');
                 expect(newComment.element(by.binding('comment.comment')).getText()).toBe('Test Comment');
-                filter = angular.injector(['ng']).get('dateFilter');
-                today = filter(new Date());
-                expect(newComment.element(by.binding('comment.date')).getText()).toContain(today);
+
+                var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                var todayDate = new Date().toISOString().split('T')[0].split('-');
+                var stringDate = month[parseInt(todayDate[1]) - 1] +
+                    " " + parseInt(todayDate[2]) + ", " + todayDate[0];
+
+                expect(newComment.element(by.binding('comment.date')).getText()).toContain(stringDate);
             });
 
             it('should have number of comments as', function () {
