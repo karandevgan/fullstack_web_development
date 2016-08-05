@@ -66,7 +66,8 @@ describe("Controller: DishDetailController", function () {
             scope.forms.commentForm = {
                 $setPristine: function () {
                     return true;
-                }
+                },
+                $valid: true
             };
 
             scope.postComment();

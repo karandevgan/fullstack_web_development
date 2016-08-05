@@ -34,7 +34,7 @@ angular.module('confusionApp')
                 $scope.filtText = "";
             }
         };
-        
+
         $scope.isSelected = function (checkTab) {
             return ($scope.tab === checkTab);
         };
@@ -52,7 +52,7 @@ angular.module('confusionApp')
     }])
 
 
-    .controller('FeedbackController', ['$scope', function ($scope) {
+    .controller('FeedbackController', ['$scope', 'feedbackFactory', function ($scope, feedbackFactory) {
         $scope.sendFeedback = function () {
             console.log($scope.feedback);
             if ($scope.feedback.agree && ($scope.feedback.mychannel === "" && !$scope.feedback.mychannel)) {
@@ -60,8 +60,10 @@ angular.module('confusionApp')
                 console.log('incorrect');
             }
             else {
+                feedbackFactory.getFeedback()
+                    .save($scope.feedback);
                 $scope.invalidChannelSelection = false;
-                $scope.feedback = { mychannel: "", firstName: "", lastName: "", agree: false, email: "" };
+                $scope.feedback = { mychannel: "", firstName: "", lastName: "", agree: false, email: "", comments: "" };
                 $scope.feedback.mychannel = "";
 
                 $scope.feedbackForm.$setPristine();
@@ -95,15 +97,15 @@ angular.module('confusionApp')
         $scope.forms = {};
 
         $scope.postComment = function () {
-            if (! $scope.forms.commentForm.$valid) {
+            if (!$scope.forms.commentForm.$valid) {
                 console.log('Invalid Form');
                 return;
-            } 
+            }
             $scope.newComment.date = new Date().toISOString();
             $scope.newComment.rating = parseInt($scope.newComment.rating);
             $scope.dish.comments.push($scope.newComment);
             console.log($scope.newComment);
-            menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
+            menuFactory.getDishes().update({ id: $scope.dish.id }, $scope.dish);
             $scope.forms.commentForm.$setPristine();
             $scope.newComment = {
                 rating: 5,

@@ -1,10 +1,15 @@
 describe("Controller: FeedbackController", function () {
 
-    beforeEach(module('confusionApp'));
+    beforeEach(module('confusionApp', ['$urlRouterProvider', function ($urlRouterProvider) {
+        $urlRouterProvider.deferIntercept();
+    }]));
 
-    var FeedbackController, scope;
+    var FeedbackController, scope, $httpBackend;
 
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, feedbackFactory) {
+
+        $httpBackend = _$httpBackend_;
+        var baseURL = 'http://localhost:3000/';
 
         var feedback = {
             mychannel: "",
@@ -14,6 +19,26 @@ describe("Controller: FeedbackController", function () {
             email: "test@test.com"
         };
 
+        var testDataWithChannel = {
+            "mychannel": "tel",
+            "firstName": "TestFirstName",
+            "lastName": "TestLastName",
+            "agree": true,
+            "email": "test@test.com"
+        };
+
+        var testDataWithNoChannel = {
+            "mychannel": "",
+            "firstName": "TestFirstName",
+            "lastName": "TestLastName",
+            "agree": false,
+            "email": "test@test.com"
+        };
+
+        $httpBackend.expectPOST(baseURL + "feedback").respond(
+            {}
+        );
+
         scope = $rootScope.$new();
         scope.feedback = feedback;
         scope.invalidChannelSelection = false;
@@ -22,8 +47,10 @@ describe("Controller: FeedbackController", function () {
                 return true;
             }
         }
+
         FeedbackController = $controller("FeedbackController", {
-            $scope: scope
+            $scope: scope,
+            feedbackFactory: feedbackFactory
         });
 
     }));
@@ -42,6 +69,7 @@ describe("Controller: FeedbackController", function () {
 
             beforeEach(function () {
                 scope.sendFeedback();
+                $httpBackend.flush();
             });
 
             it('should have "invalidChannelSelection" as false', function () {
@@ -143,6 +171,7 @@ describe("Controller: FeedbackController", function () {
 
             beforeEach(function () {
                 scope.sendFeedback();
+                $httpBackend.flush();
             });
 
             it('should have "invalidChannelSelection" as false', function () {
